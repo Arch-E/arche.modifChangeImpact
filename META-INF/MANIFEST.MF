@@ -1,0 +1,34 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArchE Modifiability Change Impact RF Plug-in
+Bundle-SymbolicName: SEI.ArchE.ModifChangeImpact;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: arche.modifChangeImpact.Activator
+Bundle-Vendor: Software Engineering Institute
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.emf.common,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.jface.text,
+ SEI.ArchE.External
+Eclipse-LazyStart: true
+Bundle-ClassPath: lib/hibernate/antlr-2.7.6.jar,
+ lib/hibernate/asm.jar,
+ lib/hibernate/asm-attrs.jar,
+ lib/hibernate/cglib-2.1.3.jar,
+ lib/hibernate/commons-collections-2.1.1.jar,
+ lib/hibernate/commons-logging-1.0.4.jar,
+ lib/hibernate/dom4j-1.6.1.jar,
+ lib/hibernate/hibernate3.jar,
+ lib/hibernate/jta.jar,
+ lib/hibernate/log4j-1.2.11.jar,
+ lib/javacsv/javacsv.jar,
+ ModifChangeImpact.jar
+Export-Package: arche.modifChangeImpact,
+ arche.modifChangeImpact.hibernate,
+ arche.modifChangeImpact.hibernate.dao,
+ arche.modifChangeImpact.hibernate.vo,
+ arche.modifChangeImpact.logging

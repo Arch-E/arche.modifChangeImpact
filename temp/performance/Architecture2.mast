@@ -1,0 +1,675 @@
+
+
+-- Real-Time System Model: MAST
+
+-- Processor
+Processing_Resource (
+    Type => Fixed_Priority_Processor,
+	Name => CPU_1,
+	Max_Priority => 400,
+    Min_Priority => 1,
+    Max_Interrupt_Priority  => 403,
+    Min_Interrupt_Priority  => 402);
+    
+-- Mutexes
+	    
+
+-- Tasks
+	-- Task Service_gen237.psource_service (1)
+	
+	Scheduling_Server (
+	        Type                            => Fixed_Priority,
+	        Name                            => Task_1,
+	        Server_Processing_Resource      => CPU_1,
+	
+	        Server_Sched_Parameters => (
+	                Type => Fixed_Priority_Policy,
+	                The_Priority => 1)
+	
+	);
+	
+	
+		-- Subtask Service_gen237.psource_service
+		Operation (
+			Type => Simple,
+			Name => OP_1_Service_gen237.psource_service_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 1
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		-- Subtask IcmC_Manage_External_Devices.psink_Service_gen237
+		Operation (
+			Type => Simple,
+			Name => OP_1_IcmC_Manage_External_Devices.psink_Service_gen237_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 2
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		-- Subtask IcmC_Manage_Itinerary.psink_Service_gen237
+		Operation (
+			Type => Simple,
+			Name => OP_1_IcmC_Manage_Itinerary.psink_Service_gen237_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 3
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		
+Transaction (
+    Type => Regular,
+    Name => Service_gen237.psource_service,
+    External_Events => (
+            (Type   => Periodic,
+             Name   => Service_gen237.psource_service,
+             Period => 40.0,
+             Phase  => 22.0)
+    ),
+    Internal_Events => (
+		
+            (Type   => regular,
+             name   => O_1_1_IcmC_Manage_External_Devices.psink_Service_gen237),
+    	
+            (Type   => regular,
+             name   => O_1_2_IcmC_Manage_Itinerary.psink_Service_gen237),
+    	
+            (Type   => regular,
+             name   => O_1_3_done
+             ,Timing_Requirements => (
+                     Type             => Hard_Global_Deadline,
+                     Deadline         => 15.0,
+                     Referenced_Event => Service_gen237.psource_service)
+             )
+    ),
+
+
+    Event_Handlers => (
+
+		
+            (Type               => Activity,
+             Input_Event        => Service_gen237.psource_service,
+             Output_Event       => O_1_1_IcmC_Manage_External_Devices.psink_Service_gen237,
+             Activity_Operation => OP_1_Service_gen237.psource_service_1,
+             Activity_Server    => Task_1
+            )
+			
+					,
+				
+            (Type               => Activity,
+             Input_Event        => O_1_1_IcmC_Manage_External_Devices.psink_Service_gen237,
+             Output_Event       => O_1_2_IcmC_Manage_Itinerary.psink_Service_gen237,
+             Activity_Operation => OP_1_IcmC_Manage_External_Devices.psink_Service_gen237_1,
+             Activity_Server    => Task_1
+            )
+			
+					,
+				
+            (Type               => Activity,
+             Input_Event        => O_1_2_IcmC_Manage_Itinerary.psink_Service_gen237,
+             Output_Event       => O_1_3_done,
+             Activity_Operation => OP_1_IcmC_Manage_Itinerary.psink_Service_gen237_1,
+             Activity_Server    => Task_1
+            )
+			
+     )
+);
+	-- Task Service_gen244.psource_service (2)
+	
+	Scheduling_Server (
+	        Type                            => Fixed_Priority,
+	        Name                            => Task_2,
+	        Server_Processing_Resource      => CPU_1,
+	
+	        Server_Sched_Parameters => (
+	                Type => Fixed_Priority_Policy,
+	                The_Priority => 4)
+	
+	);
+	
+	
+		-- Subtask Service_gen244.psource_service
+		Operation (
+			Type => Simple,
+			Name => OP_2_Service_gen244.psource_service_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 4
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		-- Subtask IcmC_Register_Views.psink_Service_gen244
+		Operation (
+			Type => Simple,
+			Name => OP_2_IcmC_Register_Views.psink_Service_gen244_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 5
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		-- Subtask IcmC_Attach_to_Model.psink_Service_gen244
+		Operation (
+			Type => Simple,
+			Name => OP_2_IcmC_Attach_to_Model.psink_Service_gen244_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 6
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		
+Transaction (
+    Type => Regular,
+    Name => Service_gen244.psource_service,
+    External_Events => (
+            (Type   => Periodic,
+             Name   => Service_gen244.psource_service,
+             Period => 42.0,
+             Phase  => 24.0)
+    ),
+    Internal_Events => (
+		
+            (Type   => regular,
+             name   => O_2_1_IcmC_Register_Views.psink_Service_gen244),
+    	
+            (Type   => regular,
+             name   => O_2_2_IcmC_Attach_to_Model.psink_Service_gen244),
+    	
+            (Type   => regular,
+             name   => O_2_3_done
+             ,Timing_Requirements => (
+                     Type             => Hard_Global_Deadline,
+                     Deadline         => 39.0,
+                     Referenced_Event => Service_gen244.psource_service)
+             )
+    ),
+
+
+    Event_Handlers => (
+
+		
+            (Type               => Activity,
+             Input_Event        => Service_gen244.psource_service,
+             Output_Event       => O_2_1_IcmC_Register_Views.psink_Service_gen244,
+             Activity_Operation => OP_2_Service_gen244.psource_service_1,
+             Activity_Server    => Task_2
+            )
+			
+					,
+				
+            (Type               => Activity,
+             Input_Event        => O_2_1_IcmC_Register_Views.psink_Service_gen244,
+             Output_Event       => O_2_2_IcmC_Attach_to_Model.psink_Service_gen244,
+             Activity_Operation => OP_2_IcmC_Register_Views.psink_Service_gen244_1,
+             Activity_Server    => Task_2
+            )
+			
+					,
+				
+            (Type               => Activity,
+             Input_Event        => O_2_2_IcmC_Attach_to_Model.psink_Service_gen244,
+             Output_Event       => O_2_3_done,
+             Activity_Operation => OP_2_IcmC_Attach_to_Model.psink_Service_gen244_1,
+             Activity_Server    => Task_2
+            )
+			
+     )
+);
+	-- Task Service_gen248.psource_service (3)
+	
+	Scheduling_Server (
+	        Type                            => Fixed_Priority,
+	        Name                            => Task_3,
+	        Server_Processing_Resource      => CPU_1,
+	
+	        Server_Sched_Parameters => (
+	                Type => Fixed_Priority_Policy,
+	                The_Priority => 7)
+	
+	);
+	
+	
+		-- Subtask Service_gen248.psource_service
+		Operation (
+			Type => Simple,
+			Name => OP_3_Service_gen248.psource_service_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 7
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		-- Subtask IcmC_Handle_User_Interactions.psink_Service_gen248
+		Operation (
+			Type => Simple,
+			Name => OP_3_IcmC_Handle_User_Interactions.psink_Service_gen248_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 8
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		-- Subtask IcmC_Create_User_Profile.psink_Service_gen248
+		Operation (
+			Type => Simple,
+			Name => OP_3_IcmC_Create_User_Profile.psink_Service_gen248_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 9
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		-- Subtask IcmC_Modify_User_Profile.psink_Service_gen248
+		Operation (
+			Type => Simple,
+			Name => OP_3_IcmC_Modify_User_Profile.psink_Service_gen248_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 10
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		
+Transaction (
+    Type => Regular,
+    Name => Service_gen248.psource_service,
+    External_Events => (
+            (Type   => Periodic,
+             Name   => Service_gen248.psource_service,
+             Period => 64.0,
+             Phase  => 46.0)
+    ),
+    Internal_Events => (
+		
+            (Type   => regular,
+             name   => O_3_1_IcmC_Handle_User_Interactions.psink_Service_gen248),
+    	
+            (Type   => regular,
+             name   => O_3_2_IcmC_Create_User_Profile.psink_Service_gen248),
+    	
+            (Type   => regular,
+             name   => O_3_3_IcmC_Modify_User_Profile.psink_Service_gen248),
+    	
+            (Type   => regular,
+             name   => O_3_4_done
+             ,Timing_Requirements => (
+                     Type             => Hard_Global_Deadline,
+                     Deadline         => 18.0,
+                     Referenced_Event => Service_gen248.psource_service)
+             )
+    ),
+
+
+    Event_Handlers => (
+
+		
+            (Type               => Activity,
+             Input_Event        => Service_gen248.psource_service,
+             Output_Event       => O_3_1_IcmC_Handle_User_Interactions.psink_Service_gen248,
+             Activity_Operation => OP_3_Service_gen248.psource_service_1,
+             Activity_Server    => Task_3
+            )
+			
+					,
+				
+            (Type               => Activity,
+             Input_Event        => O_3_1_IcmC_Handle_User_Interactions.psink_Service_gen248,
+             Output_Event       => O_3_2_IcmC_Create_User_Profile.psink_Service_gen248,
+             Activity_Operation => OP_3_IcmC_Handle_User_Interactions.psink_Service_gen248_1,
+             Activity_Server    => Task_3
+            )
+			
+					,
+				
+            (Type               => Activity,
+             Input_Event        => O_3_2_IcmC_Create_User_Profile.psink_Service_gen248,
+             Output_Event       => O_3_3_IcmC_Modify_User_Profile.psink_Service_gen248,
+             Activity_Operation => OP_3_IcmC_Create_User_Profile.psink_Service_gen248_1,
+             Activity_Server    => Task_3
+            )
+			
+					,
+				
+            (Type               => Activity,
+             Input_Event        => O_3_3_IcmC_Modify_User_Profile.psink_Service_gen248,
+             Output_Event       => O_3_4_done,
+             Activity_Operation => OP_3_IcmC_Modify_User_Profile.psink_Service_gen248_1,
+             Activity_Server    => Task_3
+            )
+			
+     )
+);
+	-- Task Service_gen252.psource_service (4)
+	
+	Scheduling_Server (
+	        Type                            => Fixed_Priority,
+	        Name                            => Task_4,
+	        Server_Processing_Resource      => CPU_1,
+	
+	        Server_Sched_Parameters => (
+	                Type => Fixed_Priority_Policy,
+	                The_Priority => 11)
+	
+	);
+	
+	
+		-- Subtask Service_gen252.psource_service
+		Operation (
+			Type => Simple,
+			Name => OP_4_Service_gen252.psource_service_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 11
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		-- Subtask IcmC_Handle_User_Interactions.psink_Service_gen252
+		Operation (
+			Type => Simple,
+			Name => OP_4_IcmC_Handle_User_Interactions.psink_Service_gen252_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 12
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		-- Subtask IcmC_Show_Itinerary.psink_Service_gen252
+		Operation (
+			Type => Simple,
+			Name => OP_4_IcmC_Show_Itinerary.psink_Service_gen252_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 13
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		-- Subtask IcmC_Manage_Itinerary.psink_Service_gen252
+		Operation (
+			Type => Simple,
+			Name => OP_4_IcmC_Manage_Itinerary.psink_Service_gen252_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 14
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		
+Transaction (
+    Type => Regular,
+    Name => Service_gen252.psource_service,
+    External_Events => (
+            (Type   => Periodic,
+             Name   => Service_gen252.psource_service,
+             Period => 55.0,
+             Phase  => 37.0)
+    ),
+    Internal_Events => (
+		
+            (Type   => regular,
+             name   => O_4_1_IcmC_Handle_User_Interactions.psink_Service_gen252),
+    	
+            (Type   => regular,
+             name   => O_4_2_IcmC_Show_Itinerary.psink_Service_gen252),
+    	
+            (Type   => regular,
+             name   => O_4_3_IcmC_Manage_Itinerary.psink_Service_gen252),
+    	
+            (Type   => regular,
+             name   => O_4_4_done
+             ,Timing_Requirements => (
+                     Type             => Hard_Global_Deadline,
+                     Deadline         => 16.0,
+                     Referenced_Event => Service_gen252.psource_service)
+             )
+    ),
+
+
+    Event_Handlers => (
+
+		
+            (Type               => Activity,
+             Input_Event        => Service_gen252.psource_service,
+             Output_Event       => O_4_1_IcmC_Handle_User_Interactions.psink_Service_gen252,
+             Activity_Operation => OP_4_Service_gen252.psource_service_1,
+             Activity_Server    => Task_4
+            )
+			
+					,
+				
+            (Type               => Activity,
+             Input_Event        => O_4_1_IcmC_Handle_User_Interactions.psink_Service_gen252,
+             Output_Event       => O_4_2_IcmC_Show_Itinerary.psink_Service_gen252,
+             Activity_Operation => OP_4_IcmC_Handle_User_Interactions.psink_Service_gen252_1,
+             Activity_Server    => Task_4
+            )
+			
+					,
+				
+            (Type               => Activity,
+             Input_Event        => O_4_2_IcmC_Show_Itinerary.psink_Service_gen252,
+             Output_Event       => O_4_3_IcmC_Manage_Itinerary.psink_Service_gen252,
+             Activity_Operation => OP_4_IcmC_Show_Itinerary.psink_Service_gen252_1,
+             Activity_Server    => Task_4
+            )
+			
+					,
+				
+            (Type               => Activity,
+             Input_Event        => O_4_3_IcmC_Manage_Itinerary.psink_Service_gen252,
+             Output_Event       => O_4_4_done,
+             Activity_Operation => OP_4_IcmC_Manage_Itinerary.psink_Service_gen252_1,
+             Activity_Server    => Task_4
+            )
+			
+     )
+);
+	-- Task Service_gen256.psource_service (5)
+	
+	Scheduling_Server (
+	        Type                            => Fixed_Priority,
+	        Name                            => Task_5,
+	        Server_Processing_Resource      => CPU_1,
+	
+	        Server_Sched_Parameters => (
+	                Type => Fixed_Priority_Policy,
+	                The_Priority => 15)
+	
+	);
+	
+	
+		-- Subtask Service_gen256.psource_service
+		Operation (
+			Type => Simple,
+			Name => OP_5_Service_gen256.psource_service_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 15
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		-- Subtask IcmC_Create_User_Profile.psink_Service_gen256
+		Operation (
+			Type => Simple,
+			Name => OP_5_IcmC_Create_User_Profile.psink_Service_gen256_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 16
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		-- Subtask IcmC_Save_Data.psink_Service_gen256
+		Operation (
+			Type => Simple,
+			Name => OP_5_IcmC_Save_Data.psink_Service_gen256_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 17
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		-- Subtask IcmC_Query_for_Data_shared_12.psink_Service_gen256
+		Operation (
+			Type => Simple,
+			Name => OP_5_IcmC_Query_for_Data_shared_12.psink_Service_gen256_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 18
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		-- Subtask IcmC_Save_Data_child_14.psink_Service_gen256
+		Operation (
+			Type => Simple,
+			Name => OP_5_IcmC_Save_Data_child_14.psink_Service_gen256_1,
+			New_Sched_Parameters => (
+				Type => Overridden_Permanent_FP,
+		        The_Priority => 19
+			),
+			Best_Case_Execution_Time => 1.0,
+Worst_Case_Execution_Time => 1.0,
+Avg_Case_Execution_Time => 1.0
+		); 
+	
+		
+Transaction (
+    Type => Regular,
+    Name => Service_gen256.psource_service,
+    External_Events => (
+            (Type   => Periodic,
+             Name   => Service_gen256.psource_service,
+             Period => 18.0,
+             Phase  => 0.0)
+    ),
+    Internal_Events => (
+		
+            (Type   => regular,
+             name   => O_5_1_IcmC_Create_User_Profile.psink_Service_gen256),
+    	
+            (Type   => regular,
+             name   => O_5_2_IcmC_Save_Data.psink_Service_gen256),
+    	
+            (Type   => regular,
+             name   => O_5_3_IcmC_Query_for_Data_shared_12.psink_Service_gen256),
+    	
+            (Type   => regular,
+             name   => O_5_4_IcmC_Save_Data_child_14.psink_Service_gen256),
+    	
+            (Type   => regular,
+             name   => O_5_5_done
+             ,Timing_Requirements => (
+                     Type             => Hard_Global_Deadline,
+                     Deadline         => 4.0,
+                     Referenced_Event => Service_gen256.psource_service)
+             )
+    ),
+
+
+    Event_Handlers => (
+
+		
+            (Type               => Activity,
+             Input_Event        => Service_gen256.psource_service,
+             Output_Event       => O_5_1_IcmC_Create_User_Profile.psink_Service_gen256,
+             Activity_Operation => OP_5_Service_gen256.psource_service_1,
+             Activity_Server    => Task_5
+            )
+			
+					,
+				
+            (Type               => Activity,
+             Input_Event        => O_5_1_IcmC_Create_User_Profile.psink_Service_gen256,
+             Output_Event       => O_5_2_IcmC_Save_Data.psink_Service_gen256,
+             Activity_Operation => OP_5_IcmC_Create_User_Profile.psink_Service_gen256_1,
+             Activity_Server    => Task_5
+            )
+			
+					,
+				
+            (Type               => Activity,
+             Input_Event        => O_5_2_IcmC_Save_Data.psink_Service_gen256,
+             Output_Event       => O_5_3_IcmC_Query_for_Data_shared_12.psink_Service_gen256,
+             Activity_Operation => OP_5_IcmC_Save_Data.psink_Service_gen256_1,
+             Activity_Server    => Task_5
+            )
+			
+					,
+				
+            (Type               => Activity,
+             Input_Event        => O_5_3_IcmC_Query_for_Data_shared_12.psink_Service_gen256,
+             Output_Event       => O_5_4_IcmC_Save_Data_child_14.psink_Service_gen256,
+             Activity_Operation => OP_5_IcmC_Query_for_Data_shared_12.psink_Service_gen256_1,
+             Activity_Server    => Task_5
+            )
+			
+					,
+				
+            (Type               => Activity,
+             Input_Event        => O_5_4_IcmC_Save_Data_child_14.psink_Service_gen256,
+             Output_Event       => O_5_5_done,
+             Activity_Operation => OP_5_IcmC_Save_Data_child_14.psink_Service_gen256_1,
+             Activity_Server    => Task_5
+            )
+			
+     )
+);
+
+             
+

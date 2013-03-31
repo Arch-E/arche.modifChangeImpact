@@ -1,0 +1,6 @@
+Transaction,Best,Average,Worst,Deadline,DeadlineMet
+service_gen237.psource_service,3.0,,24.0,15.0,n
+service_gen244.psource_service,3.0,,16.0,39.0,y
+service_gen248.psource_service,4.0,,13.0,18.0,y
+service_gen252.psource_service,4.0,,9.0,16.0,y
+service_gen256.psource_service,5.0,,5.0,4.0,n
