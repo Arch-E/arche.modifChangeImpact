@@ -60,9 +60,9 @@
     <session-factory>
         <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.password">rootless</property>
+        <property name="hibernate.connection.password">dumbledore</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/arche</property>
-        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.username">ArchE</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
         <!-- Enable Hibernate's automatic session context management -->
